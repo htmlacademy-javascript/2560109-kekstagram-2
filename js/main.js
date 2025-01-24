@@ -55,13 +55,21 @@ const NAMES = [
   'Элина',
   'Виолетта'
 ];
-const RANGE_FOR_NAME = [0,NAMES.length - 1];
-const RANGE_FOR_MESSAGE = [0,MESSAGES.length - 1];
-const RANGE_FOR_LIKES = [15,200];
-const RANGE_FOR_AVATAR = [0,6];
-const RANGE_FOR_COMMENTS = [0,30];
-const NUMBER_OF_DESCRIPTIONS = Array.from({length:25} ,(_,index) => index + 1);
 
+const NUMBER_OF_DESCRIPTIONS = 25;
+
+const range = {
+  MIN_FOR_NAMES: 0,
+  maxForNames: NAMES.length - 1,
+  MIN_FOR_MESSAGES: 0,
+  maxForMessages: MESSAGES.length - 1,
+  MIN_FOR_LIKES: 15,
+  MAX_FOR_LIKES: 200,
+  MIN_FOR_AVATARS: 0,
+  MAX_FOR_AVATARS:6,
+  MIN_FOR_COMMENTS:0,
+  MAX_FOR_COMMENTS:30
+};
 
 const generateRandomNumber = (min,max) => {
   const lower = Math.ceil(min);
@@ -69,19 +77,18 @@ const generateRandomNumber = (min,max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
-
-const arrayFromDescription = Array.from({length: NUMBER_OF_DESCRIPTIONS.length}, (l, indexPhoto) => (
+const arrayFromDescription = Array.from({length: NUMBER_OF_DESCRIPTIONS}, (valueOfDescription,indexPhoto) => (
   {
     id:indexPhoto + 1,
-    url: `photos/${NUMBER_OF_DESCRIPTIONS[indexPhoto]}.jpg`,
+    url: `photos/${indexPhoto + 1}.jpg`,
     description: DESCRIPTIONS[indexPhoto],
-    likes: generateRandomNumber(RANGE_FOR_LIKES[0], RANGE_FOR_LIKES[1]),
-    comments: Array.from({length: generateRandomNumber(RANGE_FOR_COMMENTS[0], RANGE_FOR_COMMENTS[1])}, (k,indexComments)=> (
+    likes: generateRandomNumber(range.MIN_FOR_LIKES, range.MAX_FOR_LIKES),
+    comments: Array.from({length: generateRandomNumber(range.MIN_FOR_COMMENTS, range.MAX_FOR_COMMENTS)}, (valueOfComments,indexComments)=> (
       {
         id: indexComments + 1,
-        avatar: `img/avatar-${generateRandomNumber(RANGE_FOR_AVATAR[0], RANGE_FOR_AVATAR[1])}.svg`,
-        message: MESSAGES[generateRandomNumber(RANGE_FOR_MESSAGE[0],RANGE_FOR_MESSAGE[1])],
-        name: NAMES[generateRandomNumber(RANGE_FOR_NAME[0],RANGE_FOR_NAME[1])]
+        avatar: `img/avatar-${generateRandomNumber(range.MIN_FOR_AVATARS, range.MAX_FOR_AVATARS)}.svg`,
+        message: MESSAGES[generateRandomNumber(range.MIN_FOR_MESSAGES,range.maxForMessages)],
+        name: NAMES[generateRandomNumber(range.MIN_FOR_NAMES,range.maxForNames)]
       }
     ))
   }
