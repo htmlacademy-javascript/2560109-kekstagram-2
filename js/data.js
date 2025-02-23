@@ -93,4 +93,4 @@ const getArrayPhotoDescription = () =>
   )
   );
 
-getArrayPhotoDescription();
+export {getArrayPhotoDescription};
